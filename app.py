@@ -25,7 +25,7 @@ def comicsCollection(idCollection, collected):
 def collectComic(idComic, idCollection):
     query = Comic.update(Collected=1).where(Comic.id == idComic)
     query.execute()
-    return redirect(url_for('comicsCollection', idCollection=idCollection))
+    return redirect(url_for('comicsCollection', idCollection=idCollection, collected = 0))
 
 
 @app.route('/getData')
