@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "ComicsColletionManager\\Scripts\\python.exe"
+    "python.pythonPath": "ComicsColletionManager\\Scripts\\python.exe",
+    "code-runner.executorMap": {
+        "python": "ComicsColletionManager\\Scripts\\python.exe -u"
+    }
 }

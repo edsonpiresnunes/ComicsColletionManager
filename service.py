@@ -11,9 +11,10 @@ def cleanText(txt):
     return unidecode.unidecode(pattern.sub('', txt)).upper()
 
 
-if __name__ == '__main__':
+def fillData():
     for col in Collection.select():
         req = requests.get(col.url)
+        print(f'Reading {col.title}')
         if req.status_code == 200:
             soup = BeautifulSoup(req.content, 'html.parser')
             for i, td in enumerate(soup.findAll('td', {'class': 'column-2'})):
@@ -26,7 +27,10 @@ if __name__ == '__main__':
                 if comicid != '' and ComicCollection.get_or_none(comic=comicid, collection=col.id) == None:
                     ComicCollection.create(
                         comic=comicid, collection=col.id, order=i)
-                    print(f'Created Colletion {comicid} - {col.id} - {i}')
+                    print(f'Created Comic On Colletion {comicid} - {col.id} - {i}')
         else:
             print(f'Invalid Status Code {req.status_code}')
-        print('*' * 50)
+
+
+if __name__ == '__main__':
+    fillData()

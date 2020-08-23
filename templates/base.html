@@ -1,0 +1,12 @@
+<html>
+<head>
+    <title>{% block title %} {{title or 'ComicsColletionManager'}} {% endblock %}</title>
+</head>
+<body>
+   <nav>
+       <a href="/">HOME</a>
+   </nav>
+   <hr />
+   {% block content %} {% endblock %}
+</body>
+</html>
