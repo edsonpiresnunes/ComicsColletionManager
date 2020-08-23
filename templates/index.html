@@ -3,11 +3,11 @@
 <ol>
     {% for collection in collections %}
     <li>
-        <a href="{{url_for('comicsCollection', idCollection=collection.id)}}">
+        <a href="{{url_for('comicsCollection', idCollection=collection.id, collected = 0)}}">
             {{collection.title}}
         </a>
-        <br/>
-        <br/>
+        <br />
+        <br />
     </li>
     {% endfor %}
 </ol>

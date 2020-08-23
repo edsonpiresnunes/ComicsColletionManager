@@ -1,10 +1,15 @@
 <html>
 <head>
     <title>{% block title %} {{title or 'ComicsColletionManager'}} {% endblock %}</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
    <nav>
        <a href="/">HOME</a>
+       <br/>
+       <br/>
+       <br/>
+       <a href="{{url_for('getComicData')}}">GETDATA</a>
    </nav>
    <hr />
    {% block content %} {% endblock %}

@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
-<h3>{{comicsoncollection[0].collection.title}}</h3>
-<ol>
-    {% for commic in comicsoncollection %}
-    <li>
-        <a
-            href="{{url_for('collectComic', idComic = commic.comic.id, idCollection=comicsoncollection[0].collection.id)}}">{{commic.comic.raw_name}}</a>
-        <br />
-        <br />
-    </li>
-    {% endfor %}
-</ol>
+    <h3>{{thiscollection.title}}</h3>
+    <a href="{{url_for('comicsCollection', idCollection=thiscollection.id, collected = 0)}}">PENDING</a>
+    <br />
+    <br />
+    <a href="{{url_for('comicsCollection', idCollection=thiscollection.id, collected = 1)}}">COLLECTED</a>
+    <br />
+    <br />
+    <ol>
+        {% for commic in comicsoncollection %}
+        <li>
+            <a
+                href="{{url_for('collectComic', idComic = commic.comic.id, idCollection=thiscollection.id)}}">{{commic.comic.raw_name}}</a>
+            <br />
+            <br />
+        </li>
+        {% endfor %}
+    </ol>
 {% endblock %}

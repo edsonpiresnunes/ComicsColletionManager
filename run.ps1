@@ -1,0 +1,1 @@
+c:\Projects\ComicsColletionManager\ComicsColletionManager\Scripts\python.exe c:\Projects\ComicsColletionManager\app.py
