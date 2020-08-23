@@ -1,17 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-    <h3>{{thiscollection.title}}</h3>
-    <a href="{{url_for('comicsCollection', idCollection=thiscollection.id, collected = 0)}}">PENDING</a>
+    <h3>
+        <a target="_blank" href="{{thiscollection.url}}">
+            {{thiscollection.title}}
+        </a>
+    </h3>
+    {% if collected %}
+        {% set setCollected = 0 %}
+        {% set colText = 'PENDING' %}
+    {% else %}
+        {% set setCollected = 1 %}
+        {% set colText = 'COLLECTED' %}
+    {% endif %}
+
+    {% if OrderBy == 'name' %}
+        {% set orderText = 'order' %}
+    {% else %}
+        {% set orderText = 'name' %}
+    {% endif %}    
+    
+    <a href="{{url_for('comicsCollection', idCollection=thiscollection.id, collected = setCollected, OrderBy=OrderBy)}}">{{colText}}</a>
     <br />
     <br />
-    <a href="{{url_for('comicsCollection', idCollection=thiscollection.id, collected = 1)}}">COLLECTED</a>
+    <a href="{{url_for('comicsCollection', idCollection=thiscollection.id, collected = collected, OrderBy=orderText)}}">Order By {{orderText}}</a>
     <br />
     <br />
     <ol>
         {% for commic in comicsoncollection %}
         <li>
             <a
-                href="{{url_for('collectComic', idComic = commic.comic.id, idCollection=thiscollection.id)}}">{{commic.comic.raw_name}}</a>
+                href="{{url_for('collectComic', idComic = commic.comic.id, idCollection=thiscollection.id, collected=setCollected, OrderBy=OrderBy)}}">{{commic.comic.raw_name}}</a>
             <br />
             <br />
         </li>

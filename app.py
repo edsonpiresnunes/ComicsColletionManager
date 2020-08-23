@@ -12,20 +12,26 @@ def allCollection():
                            .select())
 
 
-@app.route('/collection/<int:idCollection>/<int:collected>')
-def comicsCollection(idCollection, collected):
-    cc = ComicCollection.select().join(Comic).where(ComicCollection.collection == idCollection, Comic.collected == collected).order_by(ComicCollection.order)
+@app.route('/collection/<int:idCollection>/<int:collected>/<string:OrderBy>')
+def comicsCollection(idCollection, collected, OrderBy):
+    order = ComicCollection.order
+    if OrderBy == 'name':
+        order = Comic.raw_name
+    cc = ComicCollection.select().join(Comic).where(ComicCollection.collection == idCollection, Comic.collected == collected).order_by(order)
     col = Collection.get_by_id(idCollection)
     return render_template('collection.html',
                            comicsoncollection=cc,
-                           thiscollection=col)
+                           thiscollection=col,
+                           collected = collected,
+                           OrderBy = OrderBy)
 
 
-@app.route('/collect/<int:idCollection>/<string:idComic>')
-def collectComic(idComic, idCollection):
-    query = Comic.update(Collected=1).where(Comic.id == idComic)
+@app.route('/collect/<int:idCollection>/<string:idComic>/<int:collected>/<string:OrderBy>')
+def collectComic(idComic, idCollection, collected, OrderBy):
+    query = Comic.update(Collected=collected).where(Comic.id == idComic)
     query.execute()
-    return redirect(url_for('comicsCollection', idCollection=idCollection, collected = 0))
+    collected = not collected
+    return redirect(url_for('comicsCollection', idCollection=idCollection, collected = collected, OrderBy = OrderBy))
 
 
 @app.route('/getData')
